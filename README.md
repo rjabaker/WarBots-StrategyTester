@@ -18,22 +18,24 @@ Competition Rules
 
 Core Code BreakDown
 -------------------
-+ WarBots-StrategyTester.pro
++ grSim/
+	- Virual soccer server developed by ParsianRobotics
++ tester/WarBots-StrategyTester.pro
 	- Qt project file
 	- qmake to generate Makefile
-+ Makefile
++ tester/Makefile
 	- make to compile project
-+ main.cpp
++ tester/main.cpp
 	- declares Coaches
 	- Attempts to connect to grSim, is successful, game starts
-+ proto/
++ tester/proto/
 	- folder containing message protocols
-+ comm/
++ tester/comm/
 	- receiver.cpp
 		+ multicast listener, sends updates to Coaches whenever a new packet is received
 	- sender.cpp
 		+ UDP based sender, used to send grSim command packets
-+ general/
++ tester/general/
 	- defs.h
 		+ contains templates of Movable, Robot, FieldState and GameSetting classes
 	- defs.cpp
@@ -46,7 +48,7 @@ Core Code BreakDown
 		+ players change this file to create their own strategies and invoke them	
 	- settings.cpp
 		+ contains the game setting infomation, varies from game to game
-+ ai/
++ tester/ai/
 	- ai.h
 		+ contains the templates for Coaches and Strategy classes
 		+ any strategy must declare implementations for all different number of robots in play (even if the actino is to do nothing)
