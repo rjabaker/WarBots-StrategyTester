@@ -52,6 +52,8 @@
 #include "../proto/grSim_Commands.pb.h"
 #include "../proto/grSim_Replacement.pb.h"
 
+#include "../ai/ai.h"
+
 //globals
 extern Coach blueCoach;
 extern Coach yellowCoach;
@@ -108,13 +110,14 @@ void Receiver::processPendingDatagrams()
     int mode = packet.ParseFromString(message);
 
     packetFrame = packet.detection();
-    //packetGeo = packet.geometry();
-    //packetField = packetGeo.field();
+
 
     blueCoach.update(packetFrame);
     yellowCoach.update(packetFrame);
 
 /*
+    packetGeo = packet.geometry();
+    packetField = packetGeo.field();
     printf("\nParse status: %d",mode);
     printf("\nNumber of b: %d",packetFrame.balls_size());
     printf("\nNumber of yellow: %d",packetFrame.robots_yellow_size());

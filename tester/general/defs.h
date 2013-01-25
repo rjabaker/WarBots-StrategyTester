@@ -15,22 +15,23 @@ public:
 	double speed_x;
 	double speed_y;
 	Movable(double pos_x, double pos_y, double speed_x, double speed_y);
+	Movable();
 };
 
 class Robot: public Movable
 {
 public:
-	int id;
+	unsigned int id;
 	double orientation;
-	Robot(int id, double orientation, double pos_x, double pos_y);
+	Robot(unsigned int id, double orientation, double pos_x, double pos_y);
 };
 
 class FieldState
 {
 public:
 	Movable ball;
-	vector<Robot> bBots;
-	vector<Robot> yBots;
+	std::vector<Robot> bBots;
+	std::vector<Robot> yBots;
 	FieldState();
 };
 

@@ -1,10 +1,7 @@
 #include "defs.h"
 
-int numBbots;
-int numYbots;
-
-numBbots = 5;
-numYbots = 5;
+int numBBots = 5;
+int numYBots = 5;
 
 void GameSetting::initSetting()
 {

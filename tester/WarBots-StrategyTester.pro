@@ -1,14 +1,23 @@
 HEADERS       = comm/receiver.h \
-				comm/netraw.h
-SOURCES       = comm/receiver.cpp \
-				main.cpp \
+				comm/netraw.h \
+				comm/sender.h \
+				ai/ai.h \
+				general/defs.h
+SOURCES       = main.cpp \
+				comm/receiver.cpp \
+				comm/sender.cpp \
 				comm/netraw.cpp \
 				proto/messages_robocup_ssl_wrapper.pb.cc \
 				proto/messages_robocup_ssl_detection.pb.cc \
 				proto/messages_robocup_ssl_geometry.pb.cc \
 				proto/grSim_Replacement.pb.cc \
 				proto/grSim_Commands.pb.cc \
-				proto/grSim_Packet.pb.cc
+				proto/grSim_Packet.pb.cc \
+				ai/ai.cpp \
+				general/defs.cpp \
+				general/playerBlue.cpp \
+				general/playerYellow.cpp \
+				general/settings.cpp
 QT           += network
 QMAKE_CXXFLAGS += `pkg-config protobuf --cflags`
 LIBS += -L$$PWD/libs/ \
