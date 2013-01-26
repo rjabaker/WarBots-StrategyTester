@@ -10,19 +10,19 @@ void bluePlayerImplementOne(Coach *ourCoach)
 }
 void bluePlayerImplementTwo(Coach *ourCoach)
 {
-	//not implemented
+	bluePlayerImplementOne(ourCoach);
 }
 void bluePlayerImplementThree(Coach *ourCoach)
 {
-	//not implemented
+	bluePlayerImplementOne(ourCoach);
 }
 void bluePlayerImplementFour(Coach *ourCoach)
 {
-	//not implemented
+	bluePlayerImplementOne(ourCoach);
 }
 void bluePlayerImplementFive(Coach *ourCoach)
 {
-	//not implemented
+	bluePlayerImplementOne(ourCoach);
 }
 
 //analysis module to update velocity info to Coach FieldState from memory info

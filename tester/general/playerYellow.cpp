@@ -10,19 +10,19 @@ void yellowPlayerImplementOne(Coach *ourCoach)
 }
 void yellowPlayerImplementTwo(Coach *ourCoach)
 {
-	//not implemented
+	yellowPlayerImplementOne(ourCoach);
 }
 void yellowPlayerImplementThree(Coach *ourCoach)
 {
-	//not implemented
+	yellowPlayerImplementOne(ourCoach);
 }
 void yellowPlayerImplementFour(Coach *ourCoach)
 {
-	//not implemented
+	yellowPlayerImplementOne(ourCoach);
 }
 void yellowPlayerImplementFive(Coach *ourCoach)
 {
-	//not implemented
+	yellowPlayerImplementOne(ourCoach);
 }
 
 //analysis module to update velocity info to Coach FieldState from memory info
