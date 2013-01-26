@@ -1,6 +1,8 @@
 #include "../ai/ai.h"
 #include "../comm/sender.h"
 
+//blue team strategies (based on number of robots online)
+//basic implementation is supposed to let Robot 1 move towards the ball at all times
 void bluePlayerImplementOne(Coach *ourCoach)
 {
 	std::vector<Robot> *ourTeam;

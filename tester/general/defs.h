@@ -7,6 +7,8 @@
 
 #include <vector>
 
+//movable objects (ball, robot)
+//has x, y parts of position and velocity
 class Movable
 {
 public:
@@ -18,6 +20,8 @@ public:
 	Movable();
 };
 
+//robot class
+//movable with addtional info on robotID and orientation
 class Robot: public Movable
 {
 public:
@@ -26,6 +30,9 @@ public:
 	Robot(unsigned int id, double orientation, double pos_x, double pos_y);
 };
 
+//class for the coach to store additional info
+//derived from detection packets that aren't
+//present in the detection packets themselves
 class FieldState
 {
 public:
@@ -35,14 +42,10 @@ public:
 	FieldState();
 };
 
-/*
-class GameState
-{
-public:
-	//some form of ENUM
-};
-*/
-
+//game specific setting, contains:
+//limits on number of player controled robots
+//arbitary function to do initial setup (invoked once at start)
+//arbitary function to do repeated setup (invoked every iteration)
 class GameSetting
 {
 public:

@@ -89,6 +89,8 @@ Receiver::Receiver(QWidget *parent)
     setWindowTitle(tr("Multicast Receiver"));
 }
 
+//invoked whenever a datagram arrives at the port which
+//the receiver is listening to
 void Receiver::processPendingDatagrams()
 {
     SSL_WrapperPacket packet;
@@ -111,7 +113,7 @@ void Receiver::processPendingDatagrams()
 
     packetFrame = packet.detection();
 
-
+    //let the coaches update using the retrieved datagram
     blueCoach.update(packetFrame);
     yellowCoach.update(packetFrame);
 
