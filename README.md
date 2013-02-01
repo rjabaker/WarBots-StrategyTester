@@ -8,8 +8,8 @@ Purpose
 
 How to Run
 ----------
-+ run WarBots-StrategyTester/grSim/bin/grSim, keep default settings
-+ run WarBots-StrategyTester/tester/WarBots-StrategyTester
++ run grSim/bin/grSim, keep default settings
++ run tester/WarBots-StrategyTester
 	- run from console to see debugging output
 
 Competition Rules
