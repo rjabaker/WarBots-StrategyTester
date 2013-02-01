@@ -6,13 +6,19 @@ Purpose
 + To provide a platform to brainstorm, experiment, and test possible strategies for RoboCup SSL Gameplay
 + To provide a competition platform of virtual soccer gameplay with changeable GameMode settings
 
+How to Run
+----------
++ run WarBots-StrategyTester/grSim/bin/grSim, keep default settings
++ run WarBots-StrategyTester/tester/WarBots-StrategyTester
+	- run from console to see debugging output
+
 Competition Rules
 -----------------
 + GameMode is changed in tester/general/settings.cpp
-	- initSetting() is called once at the start of the game
-	- repeatedSetting() is called at every iteration to ensure certain criteria
+	- initGameSetting() is called once at the start of the game
+	- repeatedGameSetting() is called at every iteration to ensure certain criteria
 	- both are arbritary functions, which will allow any game configuration to be implemented
-+ The only files that players are allowed to modify are test/general/playerBlue.cpp and playerYellow.cpp
++ The only files that players are allowed to modify are test/player/playerBlue.cpp and playerYellow.cpp
 	- players are expected to build strategy classes and analysis function for their Coach to invoke their strategy
 	- nothing else can be modified, official versions of other files are used in simulations, it is up to the players to comply with the game setup and standards
 
@@ -40,14 +46,13 @@ Core Code BreakDown
 		+ contains templates of Movable, Robot, FieldState and GameSetting classes
 	- defs.cpp
 		+ contains the constructors of Movable, Robot, FieldState and GameSetting classes
-	- playerBlue.cpp
-		+ contains the analysis function definition for BlueCoach
-		+ players change this file to create their own strategies and invoke them
-	- playerYellow.cpp
-		+ contains the analysis function definition for YellowCoach
-		+ players change this file to create their own strategies and invoke them	
 	- settings.cpp
 		+ contains the game setting infomation, varies from game to game
+	- debug.h
+		+ contains function templates of debug functions
+		+ wrapping print functions for complicated classes
+	- debug.cpp
+		+ contains function definitions of debug functions
 + tester/ai/
 	- ai.h
 		+ contains the templates for Coaches and Strategy classes
@@ -55,3 +60,10 @@ Core Code BreakDown
 	- ai.cpp
 		+ most notable functions are Coach::update(SSL_DetectionFrame newFrame) and Strat::implement(), remember that players CANNOT modify these functions (or this file entirely)
 		+ update will send the new DetectionFrame into coach memory and update positions in FieldState, analysis() (player defined) is called to invoke player's strategy
++ tester/player/
+	- playerBlue.cpp
+		+ contains the analysis function definition for BlueCoach
+		+ players change this file to create their own strategies and invoke them
+	- playerYellow.cpp
+		+ contains the analysis function definition for YellowCoach
+		+ players change this file to create their own strategies and invoke them
