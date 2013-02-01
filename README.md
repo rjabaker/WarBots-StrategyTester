@@ -10,7 +10,7 @@ How to Run
 ----------
 + run grSim/bin/grSim, keep default settings
 + run tester/WarBots-StrategyTester
-	- run from console to see debugging output
+    - run from console to see debugging output
 
 Competition Rules
 -----------------
@@ -22,7 +22,46 @@ Competition Rules
 	- players are expected to build strategy classes and analysis function for their Coach to invoke their strategy
 	- nothing else can be modified, official versions of other files are used in simulations, it is up to the players to comply with the game setup and standards
 
-Core Code BreakDown
+Program Structure
+-----------------
++ Simulator
+    - grSim is the soccer simulation platform (credits to Parsian Robotics)
+    - grSim periodically scans the field and sends the information in the form of SSL_WrapperPacket
+    - grSim receives commands in the form of grSim_Packet
+    - Both the packets mentioned are google protobuf messages, check tester/proto/ for relevant files
++ Three-level AI
+    - The tester adopts a three-level AI structure
+        1. Decision AI (Coach)
+            - performs analysis on the field information, consult past information from memory, and invokes a strategy
+        2. Implementation AI (Strategy)
+            - commands robots using some predefined logic, which is deemed ideal by the coach
+        2. Basic AI (Robot)
+            - contains basic movesets of a robot (move by direction, move to a point, pass, kick, etc...)
+                + creates the corresponding command and sends it through the send functions (tester/comm/sender.cpp)
+                + may not be ideal if it is necessary to send more commands in the same command packet
+                + player has access to send function, allowed to construct their command packet to send
+            - NOTE: NOT YET IMPLEMENTED, basic movesets are currently defined in tester/comm/sender.cpp
+    - The propagation of information follows this order
++ Tester
+    - Upon boot, tester creates two coaches (one for blue team, one for yellow team)
+    - Tester checks if there exist special settings, if yes, it runs the game's initial setup function here
+        + NOTE: NOT YET IMPLEMENTED
+    - Tester has a recevier class which listens for incoming SSL_WrapperPacket (iterations start)
+    - Once a packet arrives, tester decodes the message/packet and:
+        1. Passes this packet to the coaches by calling the coaches' Update(SSL_DetectionFrame& newFrame) member function
+        2. The coaches' update function adds the new packet to their respective memory, and performance analysis using memory
+        3. The analysis refreshes the contents of the coaches' FieldState members, which contains the position and velocity (computed from past frames in memory)
+            - position updates are given in the coaches' Update functions natively
+            - velocity updates are up to the players to decide, a simple scheme is given as sample (using the last two frames)
+            - see tester/player/playerBlue.cpp and tester/player/playerYellow.cpp for the sample velocity update
+        4. At the end of the analysis, it is expected that the players invoke some strategy to implement
+            - players can just define empty strategy class and pass down their coaches
+            - the default strategy will call the corresponding functions in the player files (tester/player/player*.cpp)
+            - players are expect to code logic to play soccer in those functions, based on the number of robots they have available
+    - Tester checks if there exist special settings, if yes, it runs the game's repeated setup function here
+    - The next iteration starts
+
+Source Code BreakDown
 -------------------
 + grSim/
 	- Virual soccer server developed by ParsianRobotics
