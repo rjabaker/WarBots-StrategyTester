@@ -59,6 +59,7 @@ Program Structure
             - the default strategy will call the corresponding functions in the player files (tester/player/player*.cpp)
             - players are expect to code logic to play soccer in those functions, based on the number of robots they have available
     - Tester checks if there exist special settings, if yes, it runs the game's repeated setup function here
+        + NOTE: NOT YET IMPLEMENTED
     - The next iteration starts
 
 Source Code BreakDown
