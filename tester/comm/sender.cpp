@@ -97,7 +97,7 @@ void Move(double x, double y, double x1, double y1, double orientation, double v
         velT *= R/200.0;
         velN *= R/200.0;
     }
-    printf("\nVelT is %f, VelN is %f, R is %f, angle is %f, x is %f, y is %f",velT,velN,R,angle,x1,y1);
+    //printf("\nVelT is %f, VelN is %f, R is %f, angle is %f, x is %f, y is %f",velT,velN,R,angle,x1,y1);
 
     grSim_Packet packet;    
 

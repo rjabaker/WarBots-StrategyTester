@@ -4,6 +4,10 @@
 extern int numBBots;
 extern int numYBots;
 
+//settings.cpp
+void initGameSetting();
+void repeatedGameSetting();
+
 Movable::Movable()
 {
 	this->pos_x = 0;
@@ -36,4 +40,16 @@ GameSetting::GameSetting(int b, int y)
 {
 	numBBots = b;
 	numYBots = y;
+}
+
+void GameSetting::initSetting()
+{
+	//game specific
+	initGameSetting();
+}
+
+void GameSetting::repeatedSetting()
+{
+	//game specific
+	repeatedGameSetting();
 }

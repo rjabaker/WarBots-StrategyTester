@@ -3,12 +3,12 @@
 int numBBots = 5;
 int numYBots = 5;
 
-void GameSetting::initSetting()
+void initGameSetting()
 {
 	//game specific
 }
 
-void GameSetting::repeatedSetting()
+void repeatedGameSetting()
 {
 	//game specific
 }

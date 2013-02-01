@@ -7,17 +7,17 @@ extern int numYBots;
 
 //forward declarations
 void bluePlayerAnalysis(Coach *ourCoach);
-void bluePlayerImplementOne(Coach *ourCoach);
-void bluePlayerImplementTwo(Coach *ourCoach);
-void bluePlayerImplementThree(Coach *ourCoach);
-void bluePlayerImplementFour(Coach *ourCoach);
-void bluePlayerImplementFive(Coach *ourCoach);
+void bluePlayerImplementOneRobot(Coach *ourCoach);
+void bluePlayerImplementTwoRobot(Coach *ourCoach);
+void bluePlayerImplementThreeRobot(Coach *ourCoach);
+void bluePlayerImplementFourRobot(Coach *ourCoach);
+void bluePlayerImplementFiveRobot(Coach *ourCoach);
 void yellowPlayerAnalysis(Coach *ourCoach);
-void yellowPlayerImplementOne(Coach *ourCoach);
-void yellowPlayerImplementTwo(Coach *ourCoach);
-void yellowPlayerImplementThree(Coach *ourCoach);
-void yellowPlayerImplementFour(Coach *ourCoach);
-void yellowPlayerImplementFive(Coach *ourCoach);
+void yellowPlayerImplementOneRobot(Coach *ourCoach);
+void yellowPlayerImplementTwoRobot(Coach *ourCoach);
+void yellowPlayerImplementThreeRobot(Coach *ourCoach);
+void yellowPlayerImplementFourRobot(Coach *ourCoach);
+void yellowPlayerImplementFiveRobot(Coach *ourCoach);
 
 Coach::Coach(bool isBlue)
 {
@@ -87,6 +87,8 @@ void Coach::update(SSL_DetectionFrame newFrame)
 									 _memory[4].robots_yellow(i).y()));
 		}
 
+		printDetectionFrame(&_memory[4], "from Coach::Update");
+
 		//call analysis to update velocity
 		Analysis();
 	}
@@ -100,19 +102,19 @@ void Strategy::implement(Coach *ourCoach)
 			//no robots =(
 			break;
 		case 1:
-			bluePlayerImplementOne(ourCoach);
+			bluePlayerImplementOneRobot(ourCoach);
 			break;
 		case 2:
-			bluePlayerImplementTwo(ourCoach);
+			bluePlayerImplementTwoRobot(ourCoach);
 			break;
 		case 3:
-			bluePlayerImplementThree(ourCoach);
+			bluePlayerImplementThreeRobot(ourCoach);
 			break;
 		case 4:
-			bluePlayerImplementFour(ourCoach);
+			bluePlayerImplementFourRobot(ourCoach);
 			break;
 		case 5:
-			bluePlayerImplementFive(ourCoach);
+			bluePlayerImplementFiveRobot(ourCoach);
 			break;
 		default:
 			break;
@@ -124,19 +126,19 @@ void Strategy::implement(Coach *ourCoach)
 			//no robots =(
 			break;
 		case 1:
-			yellowPlayerImplementOne(ourCoach);
+			yellowPlayerImplementOneRobot(ourCoach);
 			break;
 		case 2:
-			yellowPlayerImplementTwo(ourCoach);
+			yellowPlayerImplementTwoRobot(ourCoach);
 			break;
 		case 3:
-			yellowPlayerImplementThree(ourCoach);
+			yellowPlayerImplementThreeRobot(ourCoach);
 			break;
 		case 4:
-			yellowPlayerImplementFour(ourCoach);
+			yellowPlayerImplementFourRobot(ourCoach);
 			break;
 		case 5:
-			yellowPlayerImplementFive(ourCoach);
+			yellowPlayerImplementFiveRobot(ourCoach);
 			break;
 		default:
 			break;

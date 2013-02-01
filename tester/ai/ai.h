@@ -2,6 +2,7 @@
 #define _AI_H_
 
 #include "../general/defs.h"
+#include "../general/debug.h"
 
 class Strategy;
 

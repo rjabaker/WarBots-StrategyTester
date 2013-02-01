@@ -1,35 +1,35 @@
 #include "../ai/ai.h"
 #include "../comm/sender.h"
 
-//yellow team strategies (based on number of robots online)
+//blue team strategies (based on number of robots online)
 //basic implementation is supposed to let Robot 1 move towards the ball at all times
-void yellowPlayerImplementOne(Coach *ourCoach)
+void bluePlayerImplementOneRobot(Coach *ourCoach)
 {
 	std::vector<Robot> *ourTeam;
-	ourTeam = &ourCoach->fs.yBots;
+	ourTeam = &ourCoach->fs.bBots;
 	Move(ourTeam->at(0).pos_x, ourTeam->at(0).pos_y, ourCoach->fs.ball.pos_x, ourCoach->fs.ball.pos_y,
-		 ourTeam->at(0).orientation, 1.0, true, ourCoach->teamBlue(), 1);
+		 ourTeam->at(0).orientation, 1.0, true, ourCoach->teamBlue(), 0);
 }
-void yellowPlayerImplementTwo(Coach *ourCoach)
+void bluePlayerImplementTwoRobot(Coach *ourCoach)
 {
-	yellowPlayerImplementOne(ourCoach);
+	bluePlayerImplementOneRobot(ourCoach);
 }
-void yellowPlayerImplementThree(Coach *ourCoach)
+void bluePlayerImplementThreeRobot(Coach *ourCoach)
 {
-	yellowPlayerImplementOne(ourCoach);
+	bluePlayerImplementOneRobot(ourCoach);
 }
-void yellowPlayerImplementFour(Coach *ourCoach)
+void bluePlayerImplementFourRobot(Coach *ourCoach)
 {
-	yellowPlayerImplementOne(ourCoach);
+	bluePlayerImplementOneRobot(ourCoach);
 }
-void yellowPlayerImplementFive(Coach *ourCoach)
+void bluePlayerImplementFiveRobot(Coach *ourCoach)
 {
-	yellowPlayerImplementOne(ourCoach);
+	bluePlayerImplementOneRobot(ourCoach);
 }
 
 //analysis module to update velocity info to Coach FieldState from memory info
 //and activates a strategy of choice (player made)
-void yellowPlayerAnalysis(Coach *ourCoach)
+void bluePlayerAnalysis(Coach *ourCoach)
 {
 	// updates velocity using only two positions (current and last), then calls basicStrat
 	ourCoach->fs.ball.speed_x = (ourCoach->memory()->at(4).balls(0).x() - ourCoach->memory()->at(3).balls(0).x()) / (ourCoach->memory()->at(4).t_sent() - ourCoach->memory()->at(3).t_sent());
@@ -55,7 +55,7 @@ void yellowPlayerAnalysis(Coach *ourCoach)
 			}
 		}
 	}
-
+	
 	for(int i = 0; i < ourCoach->memory()->at(4).robots_yellow_size(); i++)
 	{
 		for(int j = 0; j < ourCoach->memory()->at(3).robots_yellow_size(); j++)
@@ -77,7 +77,8 @@ void yellowPlayerAnalysis(Coach *ourCoach)
 		}
 	}
 
+	printFieldState(&ourCoach->fs, "From bluePlayerAnalysis");
+
 	Strategy myStrat = Strategy();
 	myStrat.implement(ourCoach);
 }
-

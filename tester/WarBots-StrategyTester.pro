@@ -2,7 +2,8 @@ HEADERS       = comm/receiver.h \
 				comm/netraw.h \
 				comm/sender.h \
 				ai/ai.h \
-				general/defs.h
+				general/defs.h \
+				general/debug.h
 SOURCES       = main.cpp \
 				comm/receiver.cpp \
 				comm/sender.cpp \
@@ -15,9 +16,10 @@ SOURCES       = main.cpp \
 				proto/grSim_Packet.pb.cc \
 				ai/ai.cpp \
 				general/defs.cpp \
-				general/playerBlue.cpp \
-				general/playerYellow.cpp \
-				general/settings.cpp
+				general/settings.cpp \
+				player/playerBlue.cpp \
+				player/playerYellow.cpp \
+				general/debug.cpp				
 QT           += network
 QMAKE_CXXFLAGS += `pkg-config protobuf --cflags`
 LIBS += -L$$PWD/libs/ \
