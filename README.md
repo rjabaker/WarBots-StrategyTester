@@ -18,7 +18,7 @@ Competition Rules
 	- initGameSetting() is called once at the start of the game
 	- repeatedGameSetting() is called at every iteration to ensure certain criteria
 	- both are arbritary functions, which will allow any game configuration to be implemented
-+ The only files that players are allowed to modify are test/player/playerBlue.cpp and playerYellow.cpp
++ The only files that players are allowed to modify are test/player/player*.h and player*.cpp
 	- players are expected to build strategy classes and analysis function for their Coach to invoke their strategy
 	- nothing else can be modified, official versions of other files are used in simulations, it is up to the players to comply with the game setup and standards
 
@@ -52,7 +52,7 @@ Program Structure
         3. The analysis refreshes the contents of the coaches' FieldState members, which contains the position and velocity (computed from past frames in memory)
             - position updates are given in the coaches' Update functions natively
             - velocity updates are up to the players to decide, a simple scheme is given as sample (using the last two frames)
-            - see tester/player/playerBlue.cpp and tester/player/playerYellow.cpp for the sample velocity update
+            - see tester/player/playerBlueSample.cpp and tester/player/playerYellowSample.cpp for the sample velocity update
         4. At the end of the analysis, it is expected that the players invoke some strategy to implement
             - players can just define empty strategy class and pass down their coaches
             - the default strategy will call the corresponding functions in the player files (tester/player/player*.cpp)
@@ -100,9 +100,13 @@ Source Code BreakDown
 		+ most notable functions are Coach::update(SSL_DetectionFrame newFrame) and Strat::implement(), remember that players CANNOT modify these functions (or this file entirely)
 		+ update will send the new DetectionFrame into coach memory and update positions in FieldState, analysis() (player defined) is called to invoke player's strategy
 + tester/player/
-	- playerBlue.cpp
+	- playerBlueSample.h
+		+ contains derived strategy classes used by blue player
+	- playerBlueSample.cpp
+		+ contains the definition of blue player's strategies
 		+ contains the analysis function definition for BlueCoach
-		+ players change this file to create their own strategies and invoke them
-	- playerYellow.cpp
+	- playerYellowSample.h
+		+ contains derived strategy classes used by yellow player
+	- playerYellowSample.cpp
+		+ contains the definition of yellow player's strategies
 		+ contains the analysis function definition for YellowCoach
-		+ players change this file to create their own strategies and invoke them
