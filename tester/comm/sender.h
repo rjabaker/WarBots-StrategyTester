@@ -7,10 +7,10 @@
 
 void sendPacket(grSim_Packet* packet);		//sends a grSim command packet
 
-//move robot 1 of a team based on angle and wanted velocity, on/off kicker setting
-void Move(double angle, double vel, bool kick, bool isBlue);
+//move a robot based on angle and wanted velocity, on/off kicker setting
+void sendMove(double angle, double vel, double kickVel, bool isBlue, int id);
 
 //move robot id with some orientation of a team from (x,y) to (x1,y1), on/off kicker setting
-void Move(double x, double y, double x1, double y1, double orientation, double vel, bool kick, bool isBlue, int id);
+void sendMove(double x, double y, double x1, double y1, double orientation, double vel, double kickVel, bool isBlue, int id);
 
 #endif

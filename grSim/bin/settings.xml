@@ -122,7 +122,7 @@
 			30012
 		</Var>
 		<Var name="Sending delay (milliseconds)" type="int" minval="" maxval="">
-			0
+			200
 		</Var>
 		<Var name="Gaussian noise" type="list">
 			<Var name="Noise" type="bool">

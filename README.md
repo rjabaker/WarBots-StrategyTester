@@ -40,7 +40,6 @@ Program Structure
                 + creates the corresponding command and sends it through the send functions (tester/comm/sender.cpp)
                 + may not be ideal if it is necessary to send more commands in the same command packet
                 + player has access to send function, allowed to construct their command packet to send
-            - NOTE: NOT YET IMPLEMENTED, basic movesets are currently defined in tester/comm/sender.cpp
     - The propagation of information follows this order
 + Tester
     - Upon boot, tester creates two coaches (one for blue team, one for yellow team)

@@ -13,7 +13,11 @@ extern int numYBots;
 
 #define PI 3.1415926
 
-void sendPacket(grSim_Packet* packet){
+#define MAX_MOVESPEED 2.0
+#define MAX_KICKSPEED 5.0
+
+void sendPacket(grSim_Packet* packet)
+{
     std::string s;
     packet->SerializeToString(&s);
     Net::UDP udpsocket;
@@ -23,19 +27,20 @@ void sendPacket(grSim_Packet* packet){
     udpsocket.send((void*) s.c_str(), s.length(), _addr);
 }
 
-void Move(double angle, double vel, bool kick, bool isBlue){
+void sendMove(double angle, double vel, double kickVel, bool isBlue, int id)
+{
+    if(vel > MAX_MOVESPEED) vel = MAX_MOVESPEED;
+    if(kickVel > MAX_KICKSPEED) kickVel = MAX_KICKSPEED;
+
     double velT = cos(angle) * vel;
     double velN = sin(angle) * vel;
-
-    double velK = 0;
-    if(kick) velK = 2.0;
 
     grSim_Packet packet;    
 
     packet.mutable_commands()->set_isteamyellow(!isBlue);
     packet.mutable_commands()->set_timestamp(1.0);
     grSim_Robot_Command* command = packet.mutable_commands()->add_robot_commands();
-    command->set_id(1);
+    command->set_id(id);
     command->set_wheelsspeed(false);
     command->set_wheel1(0);
     command->set_wheel2(0);
@@ -44,22 +49,17 @@ void Move(double angle, double vel, bool kick, bool isBlue){
     command->set_veltangent(velT);
     command->set_velnormal(velN);
     command->set_velangular(0);
-    command->set_kickspeedx(velK);
+    command->set_kickspeedx(kickVel);
     command->set_kickspeedz(0);
     command->set_spinner(true);
 
     sendPacket(&packet);
 }
 
-void Move(double x, double y, double x1, double y1, double orientation, double vel, bool kick, bool isBlue, int id){
-    if(isBlue)
-    {
-        if(id > numBBots){ return; }
-    } 
-    else 
-    { 
-        if(id > numYBots){ return; }
-    }
+void sendMove(double x, double y, double x1, double y1, double orientation, double vel, double kickVel, bool isBlue, int id)
+{
+    if(vel > MAX_MOVESPEED) vel = MAX_MOVESPEED;
+    if(kickVel > MAX_KICKSPEED) kickVel = MAX_KICKSPEED;
 
     double velT;
     double velN;
@@ -67,9 +67,6 @@ void Move(double x, double y, double x1, double y1, double orientation, double v
     double xDiff= x1-x;
     double angle = 9999999;
     double R = sqrt((yDiff*yDiff)+(xDiff*xDiff));
-
-    double velK = 0;
-    if(kick) velK = 2.0;
 
     if(R > 25){
         angle = acos(xDiff/R);
@@ -113,7 +110,7 @@ void Move(double x, double y, double x1, double y1, double orientation, double v
     command->set_veltangent(velT);
     command->set_velnormal(velN);
     command->set_velangular(0);
-    command->set_kickspeedx(velK);
+    command->set_kickspeedx(kickVel);
     command->set_kickspeedz(0);
     command->set_spinner(true);
 

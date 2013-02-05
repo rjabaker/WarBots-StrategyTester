@@ -1,35 +1,47 @@
-#include "../ai/ai.h"
-#include "../comm/sender.h"
+#include "playerYellowSample.h"
 
-//blue team strategies (based on number of robots online)
-//basic implementation is supposed to let Robot 1 move towards the ball at all times
-void bluePlayerImplementOneRobot(Coach *ourCoach)
+//yellow team strategies (based on number of robots online)
+//basic implementation is supposed to let Robot 0 move towards the ball and kick it
+void YellowSampleStrategy::implement(Coach *ourCoach)
 {
-	std::vector<Robot> *ourTeam;
-	ourTeam = &ourCoach->fs.bBots;
-	Move(ourTeam->at(0).pos_x, ourTeam->at(0).pos_y, ourCoach->fs.ball.pos_x, ourCoach->fs.ball.pos_y,
-		 ourTeam->at(0).orientation, 1.0, true, ourCoach->teamBlue(), 0);
-}
-void bluePlayerImplementTwoRobot(Coach *ourCoach)
-{
-	bluePlayerImplementOneRobot(ourCoach);
-}
-void bluePlayerImplementThreeRobot(Coach *ourCoach)
-{
-	bluePlayerImplementOneRobot(ourCoach);
-}
-void bluePlayerImplementFourRobot(Coach *ourCoach)
-{
-	bluePlayerImplementOneRobot(ourCoach);
-}
-void bluePlayerImplementFiveRobot(Coach *ourCoach)
-{
-	bluePlayerImplementOneRobot(ourCoach);
+	switch(ourCoach->fs.bBots.size()){
+	case 5:
+		//intentional fall-thru in switch, until implemented, fall to lowest #bots AI to at lease do something
+		//break;
+	case 4:
+		//intentional fall-thru in switch, until implemented, fall to lowest #bots AI to at lease do something
+		//break;
+	case 3:
+		//intentional fall-thru in switch, until implemented, fall to lowest #bots AI to at lease do something
+		//break;
+	case 2:
+		//intentional fall-thru in switch, until implemented, fall to lowest #bots AI to at lease do something
+		//break;
+	case 1:
+		double kickVelocity;
+		double stopDistance;
+		std::vector<Robot> *ourTeam;
+		Movable *ball;
+
+		kickVelocity = 2.0;
+		stopDistance = 800;
+		ball = &ourCoach->fs.ball;
+		ourTeam = &ourCoach->fs.yBots;	
+
+		if(ourTeam->at(0).distanceTo(ball->pos_x, ball->pos_y) > stopDistance)
+			ourTeam->at(0).Move(ball->pos_x, ball->pos_y, 0.5, kickVelocity, ourCoach->teamBlue());	//move towards ball til a distance
+		else if(ourTeam->at(0).FaceToward(ball->pos_x, ball->pos_y, kickVelocity, ourCoach->teamBlue()))	//rotate to faceball if close enough
+			ourTeam->at(0).Move(ball->pos_x, ball->pos_y, 0.5, kickVelocity, ourCoach->teamBlue());		//go kick if facing right direction
+		break;
+	default:
+		//nothing, no robots D=
+		break;
+	}
 }
 
 //analysis module to update velocity info to Coach FieldState from memory info
 //and activates a strategy of choice (player made)
-void bluePlayerAnalysis(Coach *ourCoach)
+void yellowPlayerAnalysis(Coach *ourCoach)
 {
 	// updates velocity using only two positions (current and last), then calls basicStrat
 	ourCoach->fs.ball.speed_x = (ourCoach->memory()->at(4).balls(0).x() - ourCoach->memory()->at(3).balls(0).x()) / (ourCoach->memory()->at(4).t_sent() - ourCoach->memory()->at(3).t_sent());
@@ -55,7 +67,7 @@ void bluePlayerAnalysis(Coach *ourCoach)
 			}
 		}
 	}
-	
+
 	for(int i = 0; i < ourCoach->memory()->at(4).robots_yellow_size(); i++)
 	{
 		for(int j = 0; j < ourCoach->memory()->at(3).robots_yellow_size(); j++)
@@ -77,8 +89,9 @@ void bluePlayerAnalysis(Coach *ourCoach)
 		}
 	}
 
-	printFieldState(&ourCoach->fs, "From bluePlayerAnalysis");
+	//printFieldState(&ourCoach->fs, "From yellowPlayerAnalysis");
 
-	Strategy myStrat = Strategy();
-	myStrat.implement(ourCoach);
+	ourCoach->strategy = new YellowSampleStrategy();
+	ourCoach->strategy->implement(ourCoach);
 }
+

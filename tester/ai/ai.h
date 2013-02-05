@@ -13,17 +13,19 @@ class Coach
 	std::vector<SSL_DetectionFrame> _memory;			//coach memory (five latest frames)
 public:
 	FieldState fs;										//coach analysis of the field
+	Strategy *strategy;									//strategy to use
 	bool teamBlue();
 	const std::vector<SSL_DetectionFrame>* memory();	//returns _memory
 	Coach(bool isBlue);									//returns _isBlue
+	~Coach();
 	void update(SSL_DetectionFrame newFrame);			//update memory with detection frame
 	virtual void Analysis();							//setup fieldstate with info in memory
-
 };
 
 //blue team coach
 //needed since we need multiple definitions of Analysis
-class BlueCoach: public Coach{
+class BlueCoach: public Coach
+{
 public:
 	void Analysis();
 	BlueCoach();
@@ -31,7 +33,8 @@ public:
 
 //yellow team coach
 //needed since we need multiple definitions of Analysis
-class YellowCoach: public Coach{
+class YellowCoach: public Coach
+{
 public:
 	void Analysis();
 	YellowCoach();
@@ -41,7 +44,7 @@ public:
 class Strategy
 {
 public:
-	void implement(Coach *ourCoach);					//calls the player's implementation
+	virtual void implement(Coach *ourCoach);			//each derived strategy has its own logic
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "../proto/messages_robocup_ssl_wrapper.pb.h"
 #include "../proto/messages_robocup_ssl_detection.pb.h"
 #include "../proto/messages_robocup_ssl_geometry.pb.h"
+#include "../comm/sender.h"
 
 #include <vector>
 
@@ -28,6 +29,14 @@ public:
 	unsigned int id;
 	double orientation;
 	Robot(unsigned int id, double orientation, double pos_x, double pos_y);
+
+	double angleTo(double x, double y);
+	double distanceTo(double x, double y);
+	void Move(double angle, double moveVelocity, double kickVelocity, bool isBlue);
+	void Move(double target_x, double target_y, double moveVelocity, double kickVelocity, bool isBlue);
+	void Stop(bool isBlue);
+	bool FaceToward(double target_x, double target_y, double kickVelocity, bool isBlue);
+	void Rotate(double angle, double kickVelocity, bool isBlue);
 };
 
 //class for the coach to store additional info
